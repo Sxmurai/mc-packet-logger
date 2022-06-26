@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.LogManager;
 import org.lwjgl.input.Keyboard;
 
@@ -14,6 +13,7 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class Config {
     public static int bind = Keyboard.KEY_RCONTROL;
     public static boolean toggled = false;
 
-    public static final Path GAME_DIRECTORY = Minecraft.getMinecraft().gameDir.toPath();
+    public static final Path GAME_DIRECTORY = Paths.get("");
     public static final Path CONFIG_FILE = GAME_DIRECTORY.resolve("packet_logger_config.json");
 
     public static void loadConfig() {

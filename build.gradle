@@ -3,14 +3,15 @@ buildscript {
         mavenCentral()
         maven { url 'https://files.minecraftforge.net/maven' }
     }
+
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3.4'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
 
-version = '1.0.0'
+version = '1.1.0'
 group = 'wtf.aesthetical.logger'
 archivesBaseName = 'packet_logger'
 
@@ -21,39 +22,27 @@ compileJava {
 }
 
 minecraft {
-    version = '1.12.2-14.23.5.2847'
-    runDir = 'run'
-    mappings = 'stable_39'
-    makeObfSourceJar = false
+    mappings channel: 'snapshot', version: '20171003-1.12'
 
-    clientJvmArgs += '-Dfml.coreMods.load=wtf.aesthetical.logger.asm.LoadingPlugin'
-}
+    runs {
+        client {
+            workingDirectory project.file('run')
 
-repositories {
-    mavenCentral()
+            property 'fml.coreMods.load', 'wtf.aesthetical.logger.asm.LoadingPlugin'
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+    }
 }
 
 dependencies {
-
+    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2860'
 }
-
-//processResources {
-//    inputs.property 'version', project.version
-//
-//    from(sourceSets.main.resources.srcDirs) {
-//        include 'mcmod.info'
-//        // Replace version.
-//        expand 'version': project.version
-//    }
-//
-//    from(sourceSets.main.resources.srcDirs) {
-//        exclude 'mcmod.info'
-//    }
-//}
 
 jar {
     manifest.attributes(
-            'FMLCorePlugin': 'wtf.aesthetical.logger.asm.LoadingPlugin',
-            'ForceLoadAsMod': 'true'
+            'ForceLoadAsMod': 'true',
+            'FMLCorePluginContainsFMLMod': 'true',
+            'FMLCorePlugin': 'wtf.aesthetical.logger.asm.LoadingPlugin'
     )
 }

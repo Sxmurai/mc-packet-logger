@@ -5,6 +5,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
+import wtf.aesthetical.logger.PacketLogger;
 import wtf.aesthetical.logger.asm.api.Injection;
 import wtf.aesthetical.logger.asm.api.Mixin;
 import wtf.aesthetical.logger.asm.api.MixinManager;
@@ -20,7 +21,6 @@ public class CustomClassTransformer implements IClassTransformer {
             ClassNode classNode = toClassNode(basicClass);
 
             for (Method method : mixin.getClass().getDeclaredMethods()) {
-                System.out.println(method.getName());
                 if (!method.isAnnotationPresent(Injection.class)) {
                     continue;
                 }
@@ -39,6 +39,11 @@ public class CustomClassTransformer implements IClassTransformer {
                         method.setAccessible(true);
                     }
 
+                    PacketLogger.LOGGER.info("Allowing mixin class {} to hook method {} into method {}.",
+                            mixin.getClass().getSimpleName(),
+                            method.getName(),
+                            methodName);
+
                     try {
                         method.invoke(mixin, methodNode);
                     } catch (IllegalAccessException | InvocationTargetException e) {
@@ -47,7 +52,8 @@ public class CustomClassTransformer implements IClassTransformer {
                 }
             }
 
-            System.out.printf("Successfully transformed class %s\n", name);
+            PacketLogger.LOGGER.info("Transformed class {} successfully.", name);
+
             return toTransformed(classNode);
         }
 
