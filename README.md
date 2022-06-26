@@ -30,7 +30,9 @@ You can find the file in your .minecraft directory under the file `packet_logger
 
 For example, on windows it is at `%APPDATA%/.minecraft/packet_logger_config.json` (Disclaimer: you have to run the game with this mod loaded for this file to be created by the mod)
 
-This JSON file allows you to customize if you see clientPackets, serverPackets, and it also allows you to set an array of allowed packets. These are the remapped stable mapping names of these packets, so no need to dig through SRG mappings.
+This JSON file allows you to customize if you see clientPackets, serverPackets, and it also allows you to set an array of allowed packets. These are the remapped stable mapping names of these packets, so no need to dig through SRG mappings. 
+
+Note: For inner class packets (ex: CPacketPlayer.Position, CPacketPlayer.Rotation), you must put the inner class name without the class the inner class is in. For example, instead of adding to the array `CPacketPlayer$Position` or `CPacketPlayer.Position` you must put `Position`.
 
 Example config file:
 
