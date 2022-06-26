@@ -10,7 +10,7 @@ If the first reason is why you're using this, I do not take liability for any lo
 
 Example of how to view packets (Vanilla game):
 
-![image](https://user-images.githubusercontent.com/57580886/175831448-18846da2-3fcc-4de0-b7df-337400453400.png)
+![image](https://user-images.githubusercontent.com/57580886/175831684-93f8c277-8ad0-4116-8cfd-c3f687754719.png)
 
 ## Building
 
